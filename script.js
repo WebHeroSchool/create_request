@@ -17,7 +17,11 @@ fetch(`https://api.github.com/users/${userName}`)
     .then(json => {
         console.log(json);
         if (json.login) {
-            let name = json.name || json.login;
+            if (json.name == 'null') {
+                let name = json.login;
+            } else {
+                let name = json.name;
+            }
             if (name) {
                 const nameTag = document.createElement('h1');
                 let link = document.createElement('a');
