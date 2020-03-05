@@ -8,7 +8,9 @@ function getUserName(url) {
     let userName = url.split('=')[1];
     if (userName === undefined) {
         userName = 'Ekka-N';
-    } 
+    } else {
+        document.body.innerHTML = '<h1>Пользователь не найден</h1>'
+    }
     return userName;
 }
 
@@ -28,7 +30,7 @@ fetch(`https://api.github.com/users/${userName}`)
             const desc = document.createElement('p');
             desc.innerHTML = `${json.bio}`;
             document.body.appendChild(desc);
-        }//https://github.com/KsuBurn
+        }
 
         if (json.avatar_url !== undefined) {
             const avatar = document.createElement('img');
