@@ -8,9 +8,7 @@ function getUserName(url) {
     let userName = url.split('=')[1];
     if (userName === undefined) {
         userName = 'Ekka-N';
-    } else {
-        document.body.innerHTML = '<h1>Пользователь не найден</h1>'
-    }
+    } 
     return userName;
 }
 
