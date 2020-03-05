@@ -1,4 +1,4 @@
-// 2. Получи ссылку на его аватарку, имя, описание профиля и ссылку на его страницу.
+// Получи ссылку на его аватарку, имя, описание профиля и ссылку на его страницу.
 
 const url = window.location.toString();
 const userName = getUserName(url);
@@ -16,28 +16,34 @@ fetch(`https://api.github.com/users/${userName}`)
     .then(res => res.json())
     .then(json => {
         console.log(json);
-        if (json.name !== undefined) {
-            const name = document.createElement('h1');
-            let a = document.createElement('a');
-            a.href = `https://github.com/${userName}`;
-            a.innerHTML = `${json.name}`;
-            document.body.appendChild(name);
-            name.appendChild(a);
-        }
-        if (json.bio !== undefined) {
-            const desc = document.createElement('p');
-            desc.innerHTML = `${json.bio}`;
-            document.body.appendChild(desc);
+        if (json.login) {
+            let name = json.name || json.login;
+            if (name) {
+                const nameTag = document.createElement('h1');
+                let link = document.createElement('a');
+                link.href = `https://github.com/${userName}`;
+                link.innerHTML = `${json.name}`;
+                document.body.appendChild(nameTag);
+                    nameTag.appendChild(link);
+            }
+            if (json.bio) {
+                const desc = document.createElement('p');
+                desc.innerHTML = `${json.bio}`;
+                document.body.appendChild(desc);
+            } 
+    
+            if (json.avatar_url) {
+                const avatar = document.createElement('img');
+                avatar.src = json.avatar_url;
+                document.body.appendChild(avatar);
+            }
+        } else {
+            document.body.innerHTML = '<h1>Пользователь не найден</h1>'
         }
 
-        if (json.avatar_url !== undefined) {
-            const avatar = document.createElement('img');
-            avatar.src = json.avatar_url;
-            document.body.appendChild(avatar);
-        }
     })
     .catch(() => document.body.innerHTML = '<h1>Пользователь не найден</h1>');
 
 
-console.log(userName);
-console.log(url);
+// console.log(userName);
+// console.log(url);
