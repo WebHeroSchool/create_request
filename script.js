@@ -36,7 +36,7 @@ fetch(`https://api.github.com/users/${userName}`)
             document.body.appendChild(avatar);
         }
     })
-    .catch(err => document.body.innerHTML = '<h1>Пользователь не найден</h1>');
+    .catch(() => document.body.innerHTML = '<h1>Пользователь не найден</h1>');
 
 
 console.log(userName);
